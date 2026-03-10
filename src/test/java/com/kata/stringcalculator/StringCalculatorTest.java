@@ -20,4 +20,10 @@ class StringCalculatorTest {
     void emptyStringReturnsZero() {
         assertThat(calculator.add("")).isZero();
     }
+
+    @Test
+    @DisplayName("Single number returns that number")
+    void singleNumberReturnsItself() {
+        assertThat(calculator.add("1")).isEqualTo(1);
+    }
 }
