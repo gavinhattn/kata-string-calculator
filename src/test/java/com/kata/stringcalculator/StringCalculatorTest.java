@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class StringCalculatorTest {
 
@@ -49,6 +50,23 @@ class StringCalculatorTest {
     @DisplayName("Custom delimiter declared in string is used for splitting")
     void customDelimiter() {
         assertThat(calculator.add("//;\n1;2")).isEqualTo(3);
+    }
+
+    @Test
+    @DisplayName("Single negative number throws exception")
+    void singleNegativeThrowsException() {
+        assertThatThrownBy(() -> calculator.add("-1,2"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Negatives not allowed: -1");
+    }
+
+    @Test
+    @DisplayName("Multiple negatives are all listed in the exception message")
+    void multipleNegativesListedInException() {
+        assertThatThrownBy(() -> calculator.add("2,-4,3,-5"))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("-4")
+                .hasMessageContaining("-5");
     }
 
 }
