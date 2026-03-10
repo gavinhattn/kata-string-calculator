@@ -40,26 +40,27 @@ public class StringCalculator {
 
         String[] parts = numbers.split(delimiter);
         int sum = 0;
-
-        // Check for negatives - collect all of them before throwing
-        String negatives = "";
-        for (String part : parts) {
-            if (Integer.parseInt(part.trim()) < 0) {
-                negatives += part.trim() + ",";
-            }
-        }
-        if (!negatives.isEmpty()) {
-            // Remove trailing comma before throwing
-            throw new IllegalArgumentException("Negatives not allowed: " + negatives.replaceAll(",$", ""));
-        }
+        StringBuilder negatives = new StringBuilder();
 
         for (String part : parts) {
             int number = Integer.parseInt(part.trim());
+
+            // Collect all negative numbers before throwing - gives the caller the full list
+            if (number < 0) {
+                if (!negatives.isEmpty()) {
+                    negatives.append(",");
+                }
+                negatives.append(number);
+            }
 
             // Ignore numbers greater than 1000
             if (number <= 1000) {
                 sum += number;
             }
+        }
+
+        if (!negatives.isEmpty()) {
+            throw new IllegalArgumentException("Negatives not allowed: " + negatives);
         }
 
         return sum;
