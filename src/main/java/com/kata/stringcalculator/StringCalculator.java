@@ -33,7 +33,12 @@ public class StringCalculator {
         }
 
         for (String part : parts) {
-            sum += Integer.parseInt(part.trim());
+            int number = Integer.parseInt(part.trim());
+
+            // Ignore numbers greater than 1000
+            if (number <= 1000) {
+                sum += number;
+            }
         }
 
         return sum;
