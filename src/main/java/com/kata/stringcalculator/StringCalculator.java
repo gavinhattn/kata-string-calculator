@@ -1,5 +1,7 @@
 package com.kata.stringcalculator;
 
+import java.util.regex.Pattern;
+
 public class StringCalculator {
 
     public int add(String numbers) {
@@ -11,11 +13,14 @@ public class StringCalculator {
         String delimiter = ",|\n";
 
         if (numbers.startsWith("//")) {
-            // The delimiter is the character between // and the first \n
-            delimiter = String.valueOf(numbers.charAt(2));
-            // Strip leaving just the numbers
-            numbers = numbers.substring(numbers.indexOf("\n"));
-		}
+            String header = numbers.substring(2, numbers.indexOf("\n"));
+            if (header.startsWith("[") && header.endsWith("]")) {
+                delimiter = Pattern.quote(header.substring(1, header.length() - 1));
+            } else {
+                delimiter = Pattern.quote(header);
+            }
+            numbers = numbers.substring(numbers.indexOf("\n") + 1);
+        }
 
         String[] parts = numbers.split(delimiter);
         int sum = 0;
