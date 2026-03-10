@@ -26,4 +26,10 @@ class StringCalculatorTest {
     void singleNumberReturnsItself() {
         assertThat(calculator.add("1")).isEqualTo(1);
     }
+
+    @Test
+    @DisplayName("Two comma-separated numbers return their sum")
+    void twoNumbersReturnSum() {
+        assertThat(calculator.add("1,2")).isEqualTo(3);
+    }
 }
