@@ -15,7 +15,23 @@ public class StringCalculator {
         if (numbers.startsWith("//")) {
             String header = numbers.substring(2, numbers.indexOf("\n"));
             if (header.startsWith("[") && header.endsWith("]")) {
-                delimiter = Pattern.quote(header.substring(1, header.length() - 1));
+                StringBuilder regexBuilder = new StringBuilder();
+                int i = 0;
+                while (i < header.length()) {
+                    if (header.charAt(i) == '[') {
+                        int closing = header.indexOf(']', i);
+                        // Extract the delimiter between the brackets
+                        String part = header.substring(i + 1, closing);
+                        if (!regexBuilder.isEmpty()) {
+                            regexBuilder.append("|");
+                        }
+                        regexBuilder.append(Pattern.quote(part));
+                        i = closing + 1;
+                    } else {
+                        i++;
+                    }
+                }
+                delimiter = regexBuilder.toString();
             } else {
                 delimiter = Pattern.quote(header);
             }
