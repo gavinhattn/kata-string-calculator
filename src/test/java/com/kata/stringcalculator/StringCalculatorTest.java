@@ -32,4 +32,10 @@ class StringCalculatorTest {
     void twoNumbersReturnSum() {
         assertThat(calculator.add("1,2")).isEqualTo(3);
     }
+
+    @Test
+    @DisplayName("Multiple comma-separated numbers return their sum")
+    void multipleNumbersReturnSum() {
+        assertThat(calculator.add("1,2,3,4,5")).isEqualTo(15);
+    }
 }

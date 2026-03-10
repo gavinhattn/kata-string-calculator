@@ -7,6 +7,7 @@ public class StringCalculator {
             return 0;
         }
 
+        // Splitting by comma handles any number of inputs, not just two
         String[] parts = numbers.split(",");
         int sum = 0;
         for (String part : parts) {
