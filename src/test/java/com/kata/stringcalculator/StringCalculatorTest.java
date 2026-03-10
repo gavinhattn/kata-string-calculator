@@ -45,4 +45,10 @@ class StringCalculatorTest {
         assertThat(calculator.add("1\n2,3")).isEqualTo(6);
     }
 
+    @Test
+    @DisplayName("Custom delimiter declared in string is used for splitting")
+    void customDelimiter() {
+        assertThat(calculator.add("//;\n1;2")).isEqualTo(3);
+    }
+
 }
