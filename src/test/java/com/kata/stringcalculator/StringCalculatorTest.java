@@ -81,4 +81,16 @@ class StringCalculatorTest {
         assertThat(calculator.add("//[|||]\n1|||2|||3")).isEqualTo(6);
     }
 
+    @Test
+    @DisplayName("Multiple single character delimiters in bracket syntax")
+    void multipleDelimiters() {
+        assertThat(calculator.add("//[|][%]\n1|2%3")).isEqualTo(6);
+    }
+
+    @Test
+    @DisplayName("Multiple delimiters of any length")
+    void multipleDelimitersOfAnyLength() {
+        assertThat(calculator.add("//[**][%%]\n1**2%%3")).isEqualTo(6);
+    }
+
 }
