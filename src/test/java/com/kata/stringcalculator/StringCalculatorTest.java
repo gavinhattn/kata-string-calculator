@@ -69,4 +69,10 @@ class StringCalculatorTest {
                 .hasMessageContaining("-5");
     }
 
+    @Test
+    @DisplayName("Numbers greater than 1000 are ignored")
+    void numbersGreaterThan1000AreIgnored() {
+        assertThat(calculator.add("1001,2")).isEqualTo(2);
+    }
+
 }
