@@ -19,6 +19,19 @@ public class StringCalculator {
 
         String[] parts = numbers.split(delimiter);
         int sum = 0;
+
+        // Check for negatives - collect all of them before throwing
+        String negatives = "";
+        for (String part : parts) {
+            if (Integer.parseInt(part.trim()) < 0) {
+                negatives += part.trim() + ",";
+            }
+        }
+        if (!negatives.isEmpty()) {
+            // Remove trailing comma before throwing
+            throw new IllegalArgumentException("Negatives not allowed: " + negatives.replaceAll(",$", ""));
+        }
+
         for (String part : parts) {
             sum += Integer.parseInt(part.trim());
         }
