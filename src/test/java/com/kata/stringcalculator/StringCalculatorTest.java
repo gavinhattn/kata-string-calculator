@@ -75,4 +75,10 @@ class StringCalculatorTest {
         assertThat(calculator.add("1001,2")).isEqualTo(2);
     }
 
+    @Test
+    @DisplayName("Delimiter can be any length when wrapped in brackets")
+    void delimiterOfAnyLength() {
+        assertThat(calculator.add("//[|||]\n1|||2|||3")).isEqualTo(6);
+    }
+
 }
